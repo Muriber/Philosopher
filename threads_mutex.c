@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 08:57:32 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/08/31 14:06:46 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/01 10:42:07 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ pthread_mutex_t	g_mutex_lec;
 
 void	*escribir(void *dat)
 {
-	int	*g_dat;
+	int	*g_dat = NULL;
 
-	*g_dat = (int) dat;
+	g_dat = (int *) dat;
 	pthread_mutex_lock(&g_mutex_grl);
 	*g_dat = *g_dat + 2;
+	//printf("g_data %d\n", *g_dat);
 	pthread_mutex_unlock(&g_mutex_grl);
 	pthread_exit(0);
 }
@@ -39,7 +40,7 @@ void	*leer(void *dat)
 	if (g_lectores == 1)
 		pthread_mutex_lock(&g_mutex_grl);
 	pthread_mutex_unlock(&g_mutex_lec);
-	printf("Dato = %d", *g_dat);
+	printf("Dato = %d\n", *g_dat);
 	pthread_mutex_lock(&g_mutex_lec);
 	g_lectores--;
 	if (g_lectores == 0)
@@ -60,6 +61,7 @@ int	main(void)
 	pthread_mutex_init(&g_mutex_lec, NULL);
 	pthread_create (&hilo1, NULL, (void *)leer, &g_dat);
 	pthread_create (&hilo2, NULL, (void *)escribir, &g_dat);
+//	printf("DatoX = %d\n", g_dat);
 	pthread_create (&hilo3, NULL, (void *)leer, &g_dat);
 	pthread_create (&hilo4, NULL, (void *)escribir, &g_dat);
 	pthread_join(hilo1, NULL);
