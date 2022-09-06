@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/06 10:04:41 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/06 13:57:01 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-pthread_mutex_t	*g_mutex_forch;
+//pthread_mutex_t	*g_mutex_forch;
 
 typedef struct s_in_arg
 {
-	int	nbr_philo;
-	int	t_todie;
-	int	t_toeat;
-	int	t_sleep;
-	int	nbr_eat;
+	int				nbr_philo;
+	int				t_todie;
+	int				t_toeat;
+	int				t_sleep;
+	int				nbr_eat;
+	pthread_mutex_t	*g_mutex_forch;
 }			t_in_arg;
 
 typedef struct s_data_philo
