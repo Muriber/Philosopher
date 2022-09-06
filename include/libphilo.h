@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/05 17:23:40 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/06 10:04:41 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_in_arg
 typedef struct s_data_philo
 {
 	int			n_philo;
+	long int	start;
 	t_in_arg	*in_arg;
 }				t_data_philo;
 
@@ -41,8 +42,9 @@ t_in_arg		*ft_init_arg(int argc, char **argv);
 pthread_mutex_t	*ft_define_nmtx(t_in_arg *in_arg);
 t_data_philo	*ft_define_d_philo(t_in_arg *in_arg);
 void			*philo(void *dat);
-void			ft_eating(t_data_philo *g_dat);
-void			ft_sleeping(t_data_philo *g_dat);
-void			ft_thinking(t_data_philo *g_dat);
+void			ft_eating(t_data_philo *g_dat, long int now);
+void			ft_sleeping(t_data_philo *g_dat, long int now);
+void			ft_thinking(t_data_philo *g_dat, long int now);
+long int		ft_timenow(void);
 
 #endif

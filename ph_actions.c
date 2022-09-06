@@ -6,42 +6,33 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/05 17:23:20 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/06 09:56:32 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libphilo.h"
 
-void	ft_eating(t_data_philo *g_dat)
+void	ft_eating(t_data_philo *g_dat, long int now)
 {
-	struct timeval	now;
 	long int		time;
 
-	gettimeofday(&now, NULL);
-	time = now.tv_sec + g_dat->in_arg->t_toeat;
-	printf("%ld %d is eating\n", now.tv_sec, g_dat->n_philo);
-	while (time > now.tv_sec)
-		gettimeofday(&now, NULL);
+	printf("%ld %d is eating\n", now, g_dat->n_philo);
+	time = now + g_dat->in_arg->t_toeat;
+	while (time >= ft_timenow())
+		ft_timenow();
 }
 
-void	ft_sleeping(t_data_philo *g_dat)
+void	ft_sleeping(t_data_philo *g_dat, long int now)
 {
-	struct timeval	now;
 	long int		time;
 
-	gettimeofday(&now, NULL);
-	time = now.tv_sec + g_dat->in_arg->t_sleep;
-	printf("%ld %d is sleeping\n", now.tv_sec, g_dat->n_philo);
-	while (time > now.tv_sec)
-		gettimeofday(&now, NULL);
+	printf("%ld %d is sleeping\n", now, g_dat->n_philo);
+	time = now + g_dat->in_arg->t_sleep;
+	while (time >= ft_timenow())
+		ft_timenow();
 }
 
-void	ft_thinking(t_data_philo *g_dat)
+void	ft_thinking(t_data_philo *g_dat, long int now)
 {
-	struct timeval	now;
-	long int		time;
-
-	gettimeofday(&now, NULL);
-	time = now.tv_sec + g_dat->in_arg->t_sleep;
-	printf("%ld %d is thinking\n", now.tv_sec, g_dat->n_philo);
+	printf("%ld %d is thinking\n", now, g_dat->n_philo);
 }
