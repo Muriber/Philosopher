@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/06 22:09:43 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/07 15:38:26 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_eating(t_data_philo *g_dat, long int now)
 
 	printf("%ld %d is eating\n", now, g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_toeat;
-	while (time >= ft_timenow())
+	while (time > ft_timenow())
 		ft_timenow();
 }
 
