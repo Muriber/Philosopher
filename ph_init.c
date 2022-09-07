@@ -6,11 +6,18 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/06 13:57:09 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/06 22:21:59 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libphilo.h"
+
+void	ft_checkvalues(t_in_arg *in_arg)
+{
+	if (in_arg->nbr_philo <= 0 || in_arg->t_todie <= 0 || in_arg->t_toeat <= 0
+		|| in_arg->t_sleep <= 0)
+		exit (0);
+}
 
 t_in_arg	*ft_init_arg(int argc, char **argv)
 {
@@ -25,6 +32,7 @@ t_in_arg	*ft_init_arg(int argc, char **argv)
 		in_arg->nbr_eat = ft_atoi(argv[5]);
 	else
 		in_arg->nbr_eat = -1;
+	ft_checkvalues(in_arg);
 	in_arg->g_mutex_forch = malloc(sizeof(pthread_mutex_t) * in_arg->nbr_philo);
 	return (in_arg);
 }

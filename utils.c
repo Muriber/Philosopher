@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 09:32:31 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/06 10:24:35 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/06 23:01:38 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,13 @@ long int	ft_timenow(void)
 
 	gettimeofday(&now, NULL);
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
+}
+
+void	ft_delay(long int delay)
+{
+	long int	time;
+
+	time = ft_timenow() + delay;
+	while (time >= ft_timenow())
+		ft_timenow();
 }
