@@ -6,11 +6,16 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/07 15:38:26 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 21:50:26 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libphilo.h"
+
+void	ft_thinking(t_data_philo *g_dat, long int now)
+{
+	printf("%ld %d is thinking\n", now, g_dat->n_philo + 1);
+}
 
 void	ft_eating(t_data_philo *g_dat, long int now)
 {
@@ -18,8 +23,10 @@ void	ft_eating(t_data_philo *g_dat, long int now)
 
 	printf("%ld %d is eating\n", now, g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_toeat;
-	while (time > ft_timenow())
-		ft_timenow();
+	while (time >= ft_timenow())
+		;
+	g_dat->n_eat++;
+//	ft_sleeping(g_dat, time);
 }
 
 void	ft_sleeping(t_data_philo *g_dat, long int now)
@@ -29,10 +36,6 @@ void	ft_sleeping(t_data_philo *g_dat, long int now)
 	printf("%ld %d is sleeping\n", now, g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_sleep;
 	while (time >= ft_timenow())
-		ft_timenow();
-}
-
-void	ft_thinking(t_data_philo *g_dat, long int now)
-{
-	printf("%ld %d is thinking\n", now, g_dat->n_philo + 1);
+		;
+	ft_thinking(g_dat, time);
 }

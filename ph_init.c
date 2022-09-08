@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/07 15:39:56 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 17:07:01 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_data_philo	*ft_define_d_philo(t_in_arg *in_arg)
 	{
 		data_philo[i].n_philo = i;
 		data_philo[i].in_arg = in_arg;
+		data_philo[i].n_eat = 0;
 		i++;
 	}
 	return (data_philo);

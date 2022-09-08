@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 09:32:31 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/07 15:40:36 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 21:36:11 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_delay(float delay)
 {
 	float	time;
 
-	time = ft_timenow() + delay;
-	while (time >= ft_timenow())
-		ft_timenow();
+	time = (float)ft_timenow() + delay;
+	while (time >= (float)ft_timenow())
+		;//usleep(delay);
 }

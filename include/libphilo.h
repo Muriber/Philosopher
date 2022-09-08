@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/07 15:44:37 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/08 18:26:58 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ typedef struct s_in_arg
 	int				t_sleep;
 	int				nbr_eat;
 	pthread_mutex_t	*g_mutex_forch;
+	pthread_mutex_t	mutex_print;
 }			t_in_arg;
 
 typedef struct s_data_philo
 {
 	int			n_philo;
 	long int	start;
-	int			prev_forch;
+	int			n_eat;
 	t_in_arg	*in_arg;
 }				t_data_philo;
 
