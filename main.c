@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3philo.c                                           :+:      :+:    :+:   */
+/*   main.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 08:57:32 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 22:37:29 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/09 11:21:39 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	*philo(void *dat)
 {
 	t_data_philo	*g_dat;
 	int				prev_forch;
-	//long int		now;
 
 	g_dat = (t_data_philo *) dat;
 	g_dat->start = ft_timenow();
@@ -33,7 +32,7 @@ void	*philo(void *dat)
 	else
 		prev_forch = g_dat->n_philo - 1;
 	if (g_dat->n_philo % 2 != 0)
-		usleep(100);//ft_delay(0.3);
+		usleep(200 + g_dat->n_philo);
 	while (1)
 	{
 		pthread_mutex_lock(&g_dat->in_arg->g_mutex_forch[g_dat->n_philo]);
@@ -55,7 +54,6 @@ int	main(int argc, char **argv)
 	t_data_philo	*data_philo;
 	int				i;
 	int				eats;
-	//pthread_mutex_t	*g_mutex_forch;
 
 	eats = 0;
 	if (argc >= 5 && argc <= 6)
@@ -68,21 +66,21 @@ int	main(int argc, char **argv)
 		while (++i < in_arg->nbr_philo)
 		{
 			pthread_mutex_init(&in_arg->g_mutex_forch[i], NULL);
-			pthread_create (&hilo[i], NULL, (void *)philo, &data_philo[i]);
+			pthread_create(&hilo[i], NULL, (void *)philo, &data_philo[i]);
+			pthread_detach(hilo[i]);
 		}
-		usleep(235);//ft_delay(4);
+		usleep(235);
 		while (1)
 		{
 			i = -1;
 			while (++i < in_arg->nbr_philo)
 			{
-//				printf("Start %d %ld\n", i, data_philo[i].start + in_arg->t_todie);
 				if ((data_philo[i].start + (long int)in_arg->t_todie) < ft_timenow())
 				{
-					printf("Start%d %ld %d is die\n", in_arg->t_todie, ft_timenow(), i + 1);
+					printf("%ld %d is die\n", ft_timenow(), i + 1);
 					exit (0);
 				}
-				if (in_arg->nbr_eat > -1 && data_philo[i].n_eat == in_arg->nbr_eat)
+				if (in_arg->nbr_eat > 0 && data_philo[i].n_eat == in_arg->nbr_eat)
 				{
 					eats++;
 					if (eats == in_arg->nbr_eat * in_arg->nbr_philo)
@@ -90,7 +88,8 @@ int	main(int argc, char **argv)
 						printf("Realizadas %d comidas por %d philos\n", in_arg->nbr_eat, eats);
 						return (0);
 					}
-				} 
+				}
+				usleep(2000);
 			}
 		}
 	}

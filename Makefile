@@ -6,11 +6,11 @@
 #    By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 09:10:14 by bjimenez          #+#    #+#              #
-#    Updated: 2022/09/05 17:22:40 by bjimenez         ###   ########.fr        #
+#    Updated: 2022/09/09 12:16:19 by bjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= 3philo.c utils.c ph_init.c ph_actions.c
+SRCS		= main.c utils.c ph_init.c ph_actions.c
 
 OBJS		= ${SRCS:.c=.o}
 
