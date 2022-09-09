@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/09 12:17:06 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/09 13:22:24 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_in_arg	*ft_init_arg(int argc, char **argv)
 	else
 		in_arg->nbr_eat = 0;
 	ft_checkvalues(in_arg);
-	in_arg->g_mutex_forch = malloc(sizeof(pthread_mutex_t) * in_arg->nbr_philo);
+	in_arg->g_mutex_fork = malloc(sizeof(pthread_mutex_t) * in_arg->nbr_philo);
 	return (in_arg);
 }
 

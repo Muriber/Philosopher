@@ -23,26 +23,26 @@ pthread_t	*ft_define_nh(t_in_arg *in_arg)
 void	*philo(void *dat)
 {
 	t_data_philo	*g_dat;
-	int				prev_forch;
+	int				prev_fork;
 
 	g_dat = (t_data_philo *) dat;
 	g_dat->start = ft_timenow();
 	if (g_dat->n_philo == 0)
-		prev_forch = g_dat->in_arg->nbr_philo - 1;
+		prev_fork = g_dat->in_arg->nbr_philo - 1;
 	else
-		prev_forch = g_dat->n_philo - 1;
+		prev_fork = g_dat->n_philo - 1;
 	if (g_dat->n_philo % 2 != 0)
 		usleep(200 + g_dat->n_philo);
 	while (1)
 	{
-		pthread_mutex_lock(&g_dat->in_arg->g_mutex_forch[g_dat->n_philo]);
-		printf("%ld %d has taken a forch\n", ft_timenow(), g_dat->n_philo + 1);
-		pthread_mutex_lock(&g_dat->in_arg->g_mutex_forch[prev_forch]);
-		printf("%ld %d has taken a forch\n", ft_timenow(), g_dat->n_philo + 1);
+		pthread_mutex_lock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
+		printf("%ld %d has taken a fork\n", ft_timenow(), g_dat->n_philo + 1);
+		pthread_mutex_lock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
+		printf("%ld %d has taken a fork\n", ft_timenow(), g_dat->n_philo + 1);
 		g_dat->start = ft_timenow();
 		ft_eating(g_dat, g_dat->start);
-		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_forch[prev_forch]);
-		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_forch[g_dat->n_philo]);
+		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
+		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
 		ft_sleeping(g_dat, ft_timenow());
 	}
 }
@@ -65,7 +65,7 @@ int	main(int argc, char **argv)
 		pthread_mutex_init(&in_arg->mutex_print, NULL);
 		while (++i < in_arg->nbr_philo)
 		{
-			pthread_mutex_init(&in_arg->g_mutex_forch[i], NULL);
+			pthread_mutex_init(&in_arg->g_mutex_fork[i], NULL);
 			pthread_create(&hilo[i], NULL, (void *)philo, &data_philo[i]);
 			pthread_detach(hilo[i]);
 		}
