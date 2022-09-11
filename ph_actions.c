@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/09 12:15:14 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/11 18:49:25 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 void	ft_thinking(t_data_philo *g_dat, long int now)
 {
-	printf("%ld %d is thinking\n", now, g_dat->n_philo + 1);
+	(void) now;
+	printf("%ld %d is thinking\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
 }
 
 void	ft_eating(t_data_philo *g_dat, long int now)
 {
 	long int		time;
 
-	printf("%ld %d is eating\n", now, g_dat->n_philo + 1);
+	printf("%ld %d is eating\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_toeat;
 	while (time >= ft_timenow())
-		usleep(50);
+		usleep(1000);
 	g_dat->n_eat++;
 }
 
@@ -32,9 +33,9 @@ void	ft_sleeping(t_data_philo *g_dat, long int now)
 {
 	long int		time;
 
-	printf("%ld %d is sleeping\n", now, g_dat->n_philo + 1);
+	printf("%ld %d is sleeping\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_sleep;
 	while (time >= ft_timenow())
-		usleep(50);
+		usleep(1000);
 	ft_thinking(g_dat, time);
 }

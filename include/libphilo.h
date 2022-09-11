@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/09 13:22:57 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:09:29 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ typedef struct s_data_philo
 {
 	int			n_philo;
 	long int	start;
+	long int	start_eat;
 	int			n_eat;
 	t_in_arg	*in_arg;
 }				t_data_philo;
 
+pthread_t		*ft_define_nh(t_in_arg *in_arg);
 int				ft_atoi(const char *str);
 t_in_arg		*ft_init_arg(int argc, char **argv);
 pthread_mutex_t	*ft_define_nmtx(t_in_arg *in_arg);

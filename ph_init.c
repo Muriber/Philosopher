@@ -6,11 +6,19 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/09 13:22:24 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/11 19:09:32 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libphilo.h"
+
+pthread_t	*ft_define_nh(t_in_arg *in_arg)
+{
+	pthread_t	*hilo;
+
+	hilo = malloc(sizeof(pthread_t) * in_arg->nbr_philo);
+	return (hilo);
+}
 
 void	ft_checkvalues(t_in_arg *in_arg)
 {
