@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/11 19:09:32 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 12:46:52 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@ pthread_t	*ft_define_nh(t_in_arg *in_arg)
 	return (hilo);
 }
 
-void	ft_checkvalues(t_in_arg *in_arg)
+int	ft_checkvalues(t_in_arg *in_arg)
 {
 	if (in_arg->nbr_philo <= 0 || in_arg->t_todie <= 0 || in_arg->t_toeat <= 0
 		|| in_arg->t_sleep <= 0 || in_arg->nbr_eat < 0)
-		exit (0);
+	{
+		free(in_arg);
+		printf("Wrong argument format\n");
+		return (1);
+	}
+	else
+		return (0);
 }
 
 t_in_arg	*ft_init_arg(int argc, char **argv)
@@ -40,7 +46,8 @@ t_in_arg	*ft_init_arg(int argc, char **argv)
 		in_arg->nbr_eat = ft_atoi(argv[5]);
 	else
 		in_arg->nbr_eat = 0;
-	ft_checkvalues(in_arg);
+	if (ft_checkvalues(in_arg) == 1)
+		return (NULL);
 	in_arg->g_mutex_fork = malloc(sizeof(pthread_mutex_t) * in_arg->nbr_philo);
 	return (in_arg);
 }

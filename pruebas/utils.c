@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 09:32:31 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/08 21:36:11 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 13:49:58 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,19 @@ long int	ft_timenow(void)
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
 
-void	ft_delay(float delay)
+/*void	ft_delay(float delay)
 {
 	float	time;
 
 	time = (float)ft_timenow() + delay;
 	while (time >= (float)ft_timenow())
 		;//usleep(delay);
+}*/
+
+void	ft_free_exit(t_data_philo *data_philo, pthread_t *hilo)
+{
+	free(hilo);
+	free(data_philo->in_arg->g_mutex_fork);
+	free(data_philo->in_arg);
+	free(data_philo);
 }

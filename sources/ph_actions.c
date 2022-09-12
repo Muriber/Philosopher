@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/11 18:49:25 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/12 17:18:42 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,33 @@
 void	ft_thinking(t_data_philo *g_dat, long int now)
 {
 	(void) now;
-	printf("%ld %d is thinking\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
+	printf("%ld %d is thinking\n", ft_timenow() - g_dat->start,
+		g_dat->n_philo + 1);
 }
 
-void	ft_eating(t_data_philo *g_dat, long int now)
+void	ft_eating(t_data_philo *g_dat, long int now, int prev_fork)
 {
 	long int		time;
 
-	printf("%ld %d is eating\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
+	g_dat->start_eat = now;
+	printf("%ld %d is eating\n", ft_timenow() - g_dat->start,
+		g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_toeat;
 	while (time >= ft_timenow())
-		usleep(1000);
+		usleep(500);
 	g_dat->n_eat++;
+	pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
+	pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
 }
 
 void	ft_sleeping(t_data_philo *g_dat, long int now)
 {
 	long int		time;
 
-	printf("%ld %d is sleeping\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
+	printf("%ld %d is sleeping\n", ft_timenow() - g_dat->start,
+		g_dat->n_philo + 1);
 	time = now + g_dat->in_arg->t_sleep;
 	while (time >= ft_timenow())
-		usleep(1000);
+		usleep(500);
 	ft_thinking(g_dat, time);
 }

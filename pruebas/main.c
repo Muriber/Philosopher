@@ -31,13 +31,13 @@ void	*philo(void *dat)
 	while (1)
 	{
 		pthread_mutex_lock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
-		printf("%ld %d has taken a fork %d\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1, g_dat->n_philo);
+		printf("%ld %d has taken a fork\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
 		pthread_mutex_lock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
-		printf("%ld %d has taken a fork %d\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1, prev_fork);
+		printf("%ld %d has taken a fork\n", ft_timenow() - g_dat->start, g_dat->n_philo + 1);
 		g_dat->start_eat = ft_timenow();
-		ft_eating(g_dat, g_dat->start_eat);
-		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
-		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
+		ft_eating(g_dat, g_dat->start_eat, prev_fork);
+//		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
+//		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
 		ft_sleeping(g_dat, ft_timenow());
 	}
 }
