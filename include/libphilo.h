@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/12 13:49:50 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:44:15 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_in_arg
 	int				nbr_eat;
 	int				state;
 	pthread_mutex_t	*g_mutex_fork;
+	pthread_mutex_t	*g_mutex_eat;
 }			t_in_arg;
 
 typedef struct s_data_philo
@@ -38,6 +39,7 @@ typedef struct s_data_philo
 	long int	start;
 	long int	start_eat;
 	int			n_eat;
+	int			n_eat_ok;
 	t_in_arg	*in_arg;
 }				t_data_philo;
 

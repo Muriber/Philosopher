@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 08:57:32 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/12 18:40:09 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:58:34 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*philo(void *dat)
 	g_dat->start_eat = g_dat->start;
 	prev_fork = ft_define_prevfork(g_dat);
 	if (g_dat->n_philo % 2 != 0)
-		usleep(1000 + g_dat->n_philo * 100);
+		usleep(3500 + g_dat->n_philo * 100);
 	if (g_dat->n_philo == g_dat->in_arg->nbr_philo -1)
 		usleep(50);
 	while (1)
@@ -58,6 +58,7 @@ void	ft_init_thread_mutex(t_in_arg *in_arg, pthread_t *hilo,
 	while (++i < in_arg->nbr_philo)
 	{
 		pthread_mutex_init(&in_arg->g_mutex_fork[i], NULL);
+		pthread_mutex_init(&in_arg->g_mutex_eat[i], NULL);
 		pthread_create(&hilo[i], NULL, (void *)philo, &data_philo[i]);
 	}
 	usleep(235);
@@ -73,19 +74,21 @@ int	ft_state_philo(t_data_philo *data_philo, t_in_arg *in_arg)
 	{
 		if (data_philo[i].start_eat + (long int)in_arg->t_todie < ft_timenow())
 		{
+			pthread_mutex_lock(&in_arg->g_mutex_eat[i]);
 			printf("%ld %d died\n", ft_timenow() - data_philo[i].start, i + 1);
 			return (1);
 		}
-		if (in_arg->nbr_eat > 0 && data_philo[i].n_eat == in_arg->nbr_eat)
+		if (in_arg->nbr_eat > 0 && data_philo[i].n_eat == in_arg->nbr_eat
+			&& data_philo[i].n_eat_ok == 0)
 		{
-			eats++;
-			if (eats >= in_arg->nbr_eat)
+			data_philo[i].n_eat_ok = 1;
+			if (++eats == in_arg->nbr_philo)
 			{
-				printf("%d eats each philo\n", eats);
+				printf("At least %d eats each philo\n", in_arg->nbr_eat);
 				return (1);
 			}
 		}
-		usleep(100);
+		usleep(1000);
 	}
 	return (0);
 }

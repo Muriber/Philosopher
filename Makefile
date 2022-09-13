@@ -6,7 +6,7 @@
 #    By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 09:10:14 by bjimenez          #+#    #+#              #
-#    Updated: 2022/09/12 18:37:31 by bjimenez         ###   ########.fr        #
+#    Updated: 2022/09/13 08:38:17 by bjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ INCLUDE		= -I include
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@echo "\n -> Procesando Norminette <-"
-			@norminette sources/*.c
+#			@echo "\n -> Procesando Norminette <-"
+#			@norminette sources/*.c
 			@echo "\n -> Compilando libfhilo <-"
 			@ar rcs ${NAME} ${OBJS}
 			@echo "\n -> Compilando Philosophers <-"
