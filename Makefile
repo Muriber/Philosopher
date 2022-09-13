@@ -6,12 +6,12 @@
 #    By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 09:10:14 by bjimenez          #+#    #+#              #
-#    Updated: 2022/09/13 08:38:17 by bjimenez         ###   ########.fr        #
+#    Updated: 2022/09/13 14:51:57 by bjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		= sources/main.c sources/ph_utils.c sources/ph_init.c \
-				sources/ph_actions.c
+SRCS		= philo/sources/main.c philo/sources/ph_utils.c philo/sources/ph_init.c \
+				philo/sources/ph_actions.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -19,13 +19,13 @@ CFLAGS		= -Wall -Wextra -Werror
 
 CC			= gcc
 
-NAME		= libphilo.a
+NAME		= philo/sources/libphilo.a
 
 RM			= rm -f
 
-INCLUDE		= -I include
+INCLUDE		= -I philo/include
 
-#INCLUDE_A	= -L sources 
+INCLUDE_A	= -L philo/sources 
 
 %.o: %.c
 			$(CC) $(CFLAGS) -c $< $(INCLUDE) -o $@
@@ -33,12 +33,12 @@ INCLUDE		= -I include
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-#			@echo "\n -> Procesando Norminette <-"
-#			@norminette sources/*.c
-			@echo "\n -> Compilando libfhilo <-"
+			@echo "\n -> Procesando Norminette <-"
+			@norminette philo/sources/*.c
+			@echo "\n -> Compilando libphilo <-"
 			@ar rcs ${NAME} ${OBJS}
 			@echo "\n -> Compilando Philosophers <-"
-			@$(CC) $(CFLAGS) -lphilo -L. -o philosophers
+			@$(CC) $(CFLAGS) $(INCLUDE_A) -lphilo -L. -o philo/philo
 
 bonus:		all
 
@@ -47,7 +47,7 @@ clean:
 
 fclean:		clean
 			${RM} ${NAME}
-			${RM} philosophers
+			${RM} philo/philo
 			
 re:			fclean all
 

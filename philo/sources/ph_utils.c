@@ -6,11 +6,11 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 09:32:31 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/12 16:36:50 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:58:58 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libphilo.h"
+#include "../include/libphilo.h"
 
 int	ft_atoi(const char *str)
 {
@@ -50,6 +50,7 @@ void	ft_free_exit(t_data_philo *data_philo, pthread_t *hilo)
 {
 	free(hilo);
 	free(data_philo->in_arg->g_mutex_fork);
+	free(data_philo->in_arg->g_mutex_eat);
 	free(data_philo->in_arg);
 	free(data_philo);
 }

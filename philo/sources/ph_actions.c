@@ -6,11 +6,11 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 11:14:18 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:58:39 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libphilo.h"
+#include "../include/libphilo.h"
 
 void	ft_thinking(t_data_philo *g_dat, long int now)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/31 08:57:32 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 11:58:34 by bjimenez         ###   ########.fr       */
+/*   Created: 2022/09/13 14:00:15 by bjimenez          #+#    #+#             */
+/*   Updated: 2022/09/13 14:00:32 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libphilo.h"
+#include "../include/libphilo.h"
 
 int	ft_define_prevfork(t_data_philo *g_dat)
 {

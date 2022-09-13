@@ -6,11 +6,11 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 11:43:50 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:58:48 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libphilo.h"
+#include "../include/libphilo.h"
 
 pthread_t	*ft_define_nh(t_in_arg *in_arg)
 {

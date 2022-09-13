@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 11:44:15 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:22:44 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
-
-//pthread_mutex_t	*g_mutex_forch;
 
 typedef struct s_in_arg
 {
