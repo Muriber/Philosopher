@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 13:58:48 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:58:12 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 pthread_t	*ft_define_nh(t_in_arg *in_arg)
 {
-	pthread_t	*hilo;
+	pthread_t	*thread;
 
-	hilo = malloc(sizeof(pthread_t) * in_arg->nbr_philo);
-	return (hilo);
+	thread = malloc(sizeof(pthread_t) * in_arg->nbr_philo);
+	return (thread);
 }
 
 int	ft_checkvalues(t_in_arg *in_arg)

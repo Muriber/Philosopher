@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:16:19 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 14:22:44 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:59:36 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void			ft_eating(t_data_philo *g_dat, long int now, int prev_fork);
 void			ft_sleeping(t_data_philo *g_dat, long int now);
 void			ft_thinking(t_data_philo *g_dat, long int now);
 long int		ft_timenow(void);
-void			ft_free_exit(t_data_philo *data_philo, pthread_t *hilo);
+void			ft_free_exit(t_data_philo *data_philo, pthread_t *thread);
 
 #endif

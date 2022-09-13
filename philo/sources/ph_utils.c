@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 09:32:31 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 13:58:58 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:59:11 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ long int	ft_timenow(void)
 	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
 }
 
-void	ft_free_exit(t_data_philo *data_philo, pthread_t *hilo)
+void	ft_free_exit(t_data_philo *data_philo, pthread_t *thread)
 {
-	free(hilo);
+	free(thread);
 	free(data_philo->in_arg->g_mutex_fork);
 	free(data_philo->in_arg->g_mutex_eat);
 	free(data_philo->in_arg);

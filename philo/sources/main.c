@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 08:57:32 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 13:58:15 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:57:32 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*philo(void *dat)
 	}
 }
 
-void	ft_init_thread_mutex(t_in_arg *in_arg, pthread_t *hilo,
+void	ft_init_thread_mutex(t_in_arg *in_arg, pthread_t *thread,
 			t_data_philo *data_philo)
 {
 	int	i;
@@ -59,7 +59,7 @@ void	ft_init_thread_mutex(t_in_arg *in_arg, pthread_t *hilo,
 	{
 		pthread_mutex_init(&in_arg->g_mutex_fork[i], NULL);
 		pthread_mutex_init(&in_arg->g_mutex_eat[i], NULL);
-		pthread_create(&hilo[i], NULL, (void *)philo, &data_philo[i]);
+		pthread_create(&thread[i], NULL, (void *)philo, &data_philo[i]);
 	}
 	usleep(235);
 }
@@ -95,7 +95,7 @@ int	ft_state_philo(t_data_philo *data_philo, t_in_arg *in_arg)
 
 int	main(int argc, char **argv)
 {
-	pthread_t		*hilo;
+	pthread_t		*thread;
 	t_in_arg		*in_arg;
 	t_data_philo	*data_philo;
 
@@ -104,14 +104,14 @@ int	main(int argc, char **argv)
 		in_arg = ft_init_arg(argc, argv);
 		if (in_arg == NULL)
 			return (0);
-		hilo = ft_define_nh(in_arg);
+		thread = ft_define_nh(in_arg);
 		data_philo = ft_define_d_philo(in_arg);
-		ft_init_thread_mutex(in_arg, hilo, data_philo);
+		ft_init_thread_mutex(in_arg, thread, data_philo);
 		while (1)
 		{
 			if (ft_state_philo(data_philo, in_arg) == 1)
 			{
-				ft_free_exit(data_philo, hilo);
+				ft_free_exit(data_philo, thread);
 				return (0);
 			}
 		}
