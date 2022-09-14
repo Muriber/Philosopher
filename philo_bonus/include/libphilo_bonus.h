@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:40:20 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 14:40:44 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/14 17:55:33 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <semaphore.h>
 
 typedef struct s_in_arg
 {
@@ -27,9 +28,8 @@ typedef struct s_in_arg
 	int				t_sleep;
 	int				nbr_eat;
 	int				state;
-	pthread_mutex_t	*g_mutex_fork;
-	pthread_mutex_t	*g_mutex_eat;
-}			t_in_arg;
+	sem_t			*sem_fork;
+}				t_in_arg;
 
 typedef struct s_data_philo
 {
@@ -41,16 +41,15 @@ typedef struct s_data_philo
 	t_in_arg	*in_arg;
 }				t_data_philo;
 
-pthread_t		*ft_define_nh(t_in_arg *in_arg);
+pid_t			*ft_define_pr(t_in_arg *in_arg);
 int				ft_atoi(const char *str);
 t_in_arg		*ft_init_arg(int argc, char **argv);
-pthread_mutex_t	*ft_define_nmtx(t_in_arg *in_arg);
 t_data_philo	*ft_define_d_philo(t_in_arg *in_arg);
-void			*philo(void *dat);
-void			ft_eating(t_data_philo *g_dat, long int now, int prev_fork);
+void			philo(pid_t pid_pr, t_data_philo *g_dat);
+void			ft_eating(t_data_philo *g_dat, long int now);
 void			ft_sleeping(t_data_philo *g_dat, long int now);
 void			ft_thinking(t_data_philo *g_dat, long int now);
 long int		ft_timenow(void);
-void			ft_free_exit(t_data_philo *data_philo, pthread_t *hilo);
+void			ft_free_exit(t_data_philo *data_philo);
 
 #endif

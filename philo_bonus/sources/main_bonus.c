@@ -6,63 +6,51 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:00:15 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/13 14:00:32 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:46:05 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libphilo.h"
+#include "../include/libphilo_bonus.h"
 
-int	ft_define_prevfork(t_data_philo *g_dat)
+void	philo(pid_t pid_pr, t_data_philo *g_dat)
 {
-	int	prev_fork;
-
-	if (g_dat->n_philo == 0)
-		prev_fork = g_dat->in_arg->nbr_philo - 1;
-	else
-		prev_fork = g_dat->n_philo - 1;
-	return (prev_fork);
-}
-
-void	*philo(void *dat)
-{
-	t_data_philo	*g_dat;
-	int				prev_fork;
-
-	g_dat = (t_data_philo *) dat;
+	(void) pid_pr;
 	g_dat->start = ft_timenow();
 	g_dat->start_eat = g_dat->start;
-	prev_fork = ft_define_prevfork(g_dat);
 	if (g_dat->n_philo % 2 != 0)
 		usleep(3500 + g_dat->n_philo * 100);
 	if (g_dat->n_philo == g_dat->in_arg->nbr_philo -1)
 		usleep(50);
 	while (1)
 	{
-		pthread_mutex_lock(&g_dat->in_arg->g_mutex_fork[g_dat->n_philo]);
+		sem_wait(g_dat->in_arg->sem_fork);
 		printf("%ld %d has taken a fork\n", ft_timenow() - g_dat->start,
 			g_dat->n_philo + 1);
-		pthread_mutex_lock(&g_dat->in_arg->g_mutex_fork[prev_fork]);
+		sem_wait(g_dat->in_arg->sem_fork);
 		printf("%ld %d has taken a fork\n", ft_timenow() - g_dat->start,
 			g_dat->n_philo + 1);
-		ft_eating(g_dat, ft_timenow(), prev_fork);
+		ft_eating(g_dat, ft_timenow());
 		ft_sleeping(g_dat, ft_timenow());
 	}
+	exit(0);
 }
 
-void	ft_init_thread_mutex(t_in_arg *in_arg, pthread_t *hilo,
-			t_data_philo *data_philo)
+int	ft_init_prcs(pid_t *pid_pr,	t_data_philo *data_philo)
 {
 	int	i;
 
 	i = -1;
-	while (++i < in_arg->nbr_philo)
+	while (++i < data_philo->in_arg->nbr_philo)
 	{
-		pthread_mutex_init(&in_arg->g_mutex_fork[i], NULL);
-		pthread_mutex_init(&in_arg->g_mutex_eat[i], NULL);
-		pthread_create(&hilo[i], NULL, (void *)philo, &data_philo[i]);
+		printf("%dºn", i);
+		pid_pr[i] = fork();
+		if (pid_pr[i] == 0)
+			philo(pid_pr[i], &data_philo[i]);
 	}
-	usleep(235);
+	return (i);
+	//usleep(235);
 }
+/*genero los procesos hijos, tantos como filosofos*/
 
 int	ft_state_philo(t_data_philo *data_philo, t_in_arg *in_arg)
 {
@@ -74,7 +62,7 @@ int	ft_state_philo(t_data_philo *data_philo, t_in_arg *in_arg)
 	{
 		if (data_philo[i].start_eat + (long int)in_arg->t_todie < ft_timenow())
 		{
-			pthread_mutex_lock(&in_arg->g_mutex_eat[i]);
+//			semaforocomer;
 			printf("%ld %d died\n", ft_timenow() - data_philo[i].start, i + 1);
 			return (1);
 		}
@@ -95,7 +83,7 @@ int	ft_state_philo(t_data_philo *data_philo, t_in_arg *in_arg)
 
 int	main(int argc, char **argv)
 {
-	pthread_t		*hilo;
+	pid_t			*pid_pr;
 	t_in_arg		*in_arg;
 	t_data_philo	*data_philo;
 
@@ -104,14 +92,14 @@ int	main(int argc, char **argv)
 		in_arg = ft_init_arg(argc, argv);
 		if (in_arg == NULL)
 			return (0);
-		hilo = ft_define_nh(in_arg);
+		pid_pr = ft_define_pr(in_arg);
 		data_philo = ft_define_d_philo(in_arg);
-		ft_init_thread_mutex(in_arg, hilo, data_philo);
+		ft_init_prcs(pid_pr, data_philo);
 		while (1)
 		{
 			if (ft_state_philo(data_philo, in_arg) == 1)
 			{
-				ft_free_exit(data_philo, hilo);
+				ft_free_exit(data_philo);
 				return (0);
 			}
 		}
