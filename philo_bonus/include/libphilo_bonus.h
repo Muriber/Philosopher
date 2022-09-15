@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:40:20 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/14 17:55:33 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:37:11 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <semaphore.h>
+# include <signal.h>
+# include <sys/signal.h>
 
 typedef struct s_in_arg
 {
@@ -29,6 +31,7 @@ typedef struct s_in_arg
 	int				nbr_eat;
 	int				state;
 	sem_t			*sem_fork;
+	sem_t			*sem_wr;
 }				t_in_arg;
 
 typedef struct s_data_philo
@@ -38,6 +41,7 @@ typedef struct s_data_philo
 	long int	start_eat;
 	int			n_eat;
 	int			n_eat_ok;
+	int			die;
 	t_in_arg	*in_arg;
 }				t_data_philo;
 
