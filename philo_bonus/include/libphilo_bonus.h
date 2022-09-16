@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:40:20 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/15 11:37:11 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:12:23 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,20 @@ typedef struct s_in_arg
 	int				nbr_eat;
 	int				state;
 	sem_t			*sem_fork;
-	sem_t			*sem_wr;
+//	sem_t			*sem_wr;
 }				t_in_arg;
 
 typedef struct s_data_philo
 {
 	int			n_philo;
+	pthread_t	name_philo;
 	long int	start;
 	long int	start_eat;
 	int			n_eat;
 	int			n_eat_ok;
 	int			die;
 	t_in_arg	*in_arg;
+	sem_t		*sem_eat;
 }				t_data_philo;
 
 pid_t			*ft_define_pr(t_in_arg *in_arg);
@@ -55,5 +57,6 @@ void			ft_sleeping(t_data_philo *g_dat, long int now);
 void			ft_thinking(t_data_philo *g_dat, long int now);
 long int		ft_timenow(void);
 void			ft_free_exit(t_data_philo *data_philo);
+pthread_t		*ft_define_nh(t_in_arg *in_arg);
 
 #endif
