@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:40:20 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/16 13:12:23 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:27:32 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_in_arg
 	int				nbr_eat;
 	int				state;
 	sem_t			*sem_fork;
-//	sem_t			*sem_wr;
+	sem_t			*sem_wr;
 }				t_in_arg;
 
 typedef struct s_data_philo
