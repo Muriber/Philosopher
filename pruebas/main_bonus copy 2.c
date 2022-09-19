@@ -6,32 +6,36 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:00:15 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/19 19:37:41 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/19 09:08:57 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libphilo_bonus.h"
 
+//int	ft_state_philo(t_data_philo *data_philo, t_in_arg *in_arg)
 void	*ft_state_philo(t_data_philo *g_dat)
 {
-	while (g_dat->n_eat_ok == 0 && g_dat->die == 0)
+	t_data_philo	*data_philo;
+
+	data_philo = (t_data_philo *)g_dat;
+	while (1)
 	{
-		if (g_dat->start_eat + (long int)g_dat->in_arg->t_todie <= ft_timenow())
+		if (data_philo->start_eat + (long int)data_philo->in_arg->t_todie < ft_timenow())
 		{
-			sem_wait(g_dat->sem_eat);
+			sem_wait(data_philo->sem_eat);
 			sem_wait(g_dat->in_arg->sem_wr);
-			g_dat->die = 1;
-			printf("%ld %d died\n", ft_timenow() - g_dat->start,
-				g_dat->n_philo + 1);
+			data_philo->die = 1;
+			printf("%ld %d died\n", ft_timenow() - data_philo->start,
+				data_philo->n_philo + 1);
 			kill(0, SIGINT);
 		}
-		if (g_dat->in_arg->nbr_eat > 0 && g_dat->n_eat
-			>= g_dat->in_arg->nbr_eat)
+		if (data_philo->in_arg->nbr_eat > 0 && data_philo->n_eat == data_philo->in_arg->nbr_eat)
 		{
-			g_dat->n_eat_ok = 1;
-			sem_wait(g_dat->in_arg->sem_wr);
-			sem_wait(g_dat->sem_eat);
-			sem_post(g_dat->in_arg->sem_wr);
+			printf("Eats: %d philo:%d\n", data_philo->n_eat, data_philo->n_philo);
+//			waitpid(0, NULL, WUNTRACED);
+//			sem_wait(g_dat->in_arg->sem_wr);
+//			printf("At least %d eats each philo\n", data_philo->in_arg->nbr_eat);
+			kill(1, SIGINT);
 		}
 		usleep(500);
 	}
@@ -43,15 +47,11 @@ int	ft_init_prcs(pid_t *pid_pr,	t_data_philo *data_philo)
 	int	i;
 
 	i = -1;
-	sem_wait(data_philo->in_arg->sem_prcs);
 	while (++i < data_philo->in_arg->nbr_philo)
 	{
 		pid_pr[i] = fork();
 		if (pid_pr[i] == 0)
-		{
 			philo(pid_pr[i], &data_philo[i]);
-			exit(0);
-		}
 	}
 	return (i);
 }
@@ -60,13 +60,15 @@ void	philo(pid_t pid_pr, t_data_philo *g_dat)
 {
 	pthread_t	thread_status;
 
-	g_dat->pid_ph = pid_pr;
+	(void) pid_pr;
 	g_dat->start = ft_timenow();
 	g_dat->start_eat = g_dat->start;
 	pthread_create(&thread_status, NULL, (void *)ft_state_philo, g_dat);
 	pthread_detach(thread_status);
 	if (g_dat->n_philo % 2 != 0)
 		usleep(100 + g_dat->n_philo * 100);
+/*	if (g_dat->n_philo == g_dat->in_arg->nbr_philo -1)
+		usleep(50);*/
 	while (g_dat->n_eat_ok == 0 && g_dat->die == 0)
 	{
 		sem_wait(g_dat->in_arg->sem_fork);
@@ -82,12 +84,19 @@ void	philo(pid_t pid_pr, t_data_philo *g_dat)
 		ft_eating(g_dat, ft_timenow());
 		ft_sleeping(g_dat, ft_timenow());
 	}
+	kill(0, SIGINT);
 }
 
-void	ft_leaks(void)
+/*void	ft_init_thread(t_in_arg *in_arg, pthread_t *thread,
+			t_data_philo *data_philo)
 {
-	system("leaks -q philo_bonus");
-}
+	int	i;
+
+	i = -1;
+	while (++i < in_arg->nbr_philo)
+		pthread_create(&thread[i], NULL, (void *)ft_state_philo, &data_philo[i]);
+	usleep(235);
+}*/
 
 int	main(int argc, char **argv)
 {
@@ -96,7 +105,7 @@ int	main(int argc, char **argv)
 	t_data_philo	*data_philo;
 	int				i;
 
-	i = 0;
+	i = -1;
 	if (argc >= 5 && argc <= 6)
 	{
 		in_arg = ft_init_arg(argc, argv);
@@ -104,15 +113,12 @@ int	main(int argc, char **argv)
 			return (0);
 		pid_pr = ft_define_pr(in_arg);
 		data_philo = ft_define_d_philo(in_arg);
-		printf("%d\n", i);
-		if (i == 0)
-			i = ft_init_prcs(pid_pr, data_philo);
-		waitpid(-1, NULL, WUNTRACED);
-		ft_free_exit(in_arg, data_philo, pid_pr);
+		ft_init_prcs(pid_pr, data_philo);
+		//waitpid(-1, NULL, WUNTRACED);
+		while (++i < in_arg->nbr_philo)
+			waitpid(pid_pr[i], NULL, WUNTRACED);
 	}
 	else
 		printf("wrong number of arguments\n");
-	atexit(ft_leaks);
-//	system("leaks -q philo_bonus");
 	return (0);
 }

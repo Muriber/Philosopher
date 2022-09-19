@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:32:00 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/18 19:27:59 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/19 13:23:11 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ t_in_arg	*ft_init_arg(int argc, char **argv)
 		return (NULL);
 	sem_unlink("sem_f");
 	sem_unlink("sem_write");
+	sem_unlink("sem_prcs");
 	in_arg->sem_fork = sem_open("sem_f", O_CREAT, S_IRWXU, in_arg->nbr_philo);
 	in_arg->sem_wr = sem_open("sem_write", O_CREAT, S_IRWXU, 1);
+	in_arg->sem_prcs = sem_open("sem_prcs", O_CREAT, S_IRWXU, 1);
 	return (in_arg);
 }
 
