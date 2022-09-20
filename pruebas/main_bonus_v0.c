@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   main_bonus_v0.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:00:15 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/19 22:51:38 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 08:36:05 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,9 @@ void	*ft_state_philo(t_data_philo *g_dat)
 			>= g_dat->in_arg->nbr_eat)
 		{
 			g_dat->n_eat_ok = 1;
-	//		sem_wait(g_dat->in_arg->sem_wr);
+			sem_wait(g_dat->in_arg->sem_wr);
 			sem_wait(g_dat->sem_eat);
-	//		sem_post(g_dat->in_arg->sem_wr);
-			waitpid(0, NULL, WUNTRACED);
-	//		exit(0);
+			sem_post(g_dat->in_arg->sem_wr);
 		}
 		usleep(500);
 	}
@@ -68,7 +66,7 @@ void	philo(pid_t pid_pr, t_data_philo *g_dat)
 	pthread_create(&thread_status, NULL, (void *)ft_state_philo, g_dat);
 	pthread_detach(thread_status);
 	if (g_dat->n_philo % 2 != 0)
-		usleep(2000 + g_dat->n_philo * 100);
+		usleep(100 + g_dat->n_philo * 100);
 	while (g_dat->n_eat_ok == 0 && g_dat->die == 0)
 	{
 		sem_wait(g_dat->in_arg->sem_fork);

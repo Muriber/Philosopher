@@ -6,11 +6,11 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:35:04 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/19 14:13:40 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 11:49:29 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libphilo_bonus.h"
+#include "libphilo_bonus.h"
 
 int	ft_atoi(const char *str)
 {
@@ -51,6 +51,10 @@ void	ft_free_exit(t_in_arg *in_arg, t_data_philo *data_philo, pid_t *pid_pr)
 	int	i;
 
 	i = -1;
+	sem_close(data_philo->sem_eat);
+	sem_close(data_philo->in_arg->sem_fork);
+	sem_close(data_philo->in_arg->sem_prcs);
+	sem_close(data_philo->in_arg->sem_wr);
 	while (++i < in_arg->nbr_philo)
 		kill(pid_pr[i], SIGINT);
 	free(in_arg);

@@ -6,11 +6,11 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:32:00 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/19 13:23:11 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:33:53 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libphilo_bonus.h"
+#include "libphilo_bonus.h"
 
 pid_t	*ft_define_pr(t_in_arg *in_arg)
 {
@@ -26,7 +26,9 @@ int	ft_checkvalues(t_in_arg *in_arg)
 		|| in_arg->t_sleep <= 0 || in_arg->nbr_eat < 0)
 	{
 		free(in_arg);
-		printf("Wrong argument format\n");
+		printf("Wrong argument format\nEnter arguments in the next format:\n");
+		printf("./philo_bonus nbr_philos(>0) time_to_die(ms>0) ");
+		printf("time_to_eat(ms>0) time_to_sleep(ms>0) optional min_eats(>0)\n");
 		return (1);
 	}
 	else
@@ -54,6 +56,7 @@ t_in_arg	*ft_init_arg(int argc, char **argv)
 	in_arg->sem_fork = sem_open("sem_f", O_CREAT, S_IRWXU, in_arg->nbr_philo);
 	in_arg->sem_wr = sem_open("sem_write", O_CREAT, S_IRWXU, 1);
 	in_arg->sem_prcs = sem_open("sem_prcs", O_CREAT, S_IRWXU, 1);
+	in_arg->eat_state = 0;
 	return (in_arg);
 }
 

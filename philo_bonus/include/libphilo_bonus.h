@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:40:20 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/19 13:23:26 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/20 12:32:40 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_in_arg
 	int				t_toeat;
 	int				t_sleep;
 	int				nbr_eat;
-	int				state;
+	int				eat_state;
+	int				die;
 	sem_t			*sem_fork;
 	sem_t			*sem_wr;
 	sem_t			*sem_prcs;
@@ -53,12 +54,13 @@ pid_t			*ft_define_pr(t_in_arg *in_arg);
 int				ft_atoi(const char *str);
 t_in_arg		*ft_init_arg(int argc, char **argv);
 t_data_philo	*ft_define_d_philo(t_in_arg *in_arg);
-void			philo(pid_t pid_pr, t_data_philo *g_dat);
+void			ft_philo(pid_t pid_pr, t_data_philo *g_dat);
 void			ft_eating(t_data_philo *g_dat, long int now);
 void			ft_sleeping(t_data_philo *g_dat, long int now);
 void			ft_thinking(t_data_philo *g_dat, long int now);
 long int		ft_timenow(void);
-void			ft_free_exit(t_in_arg *in_arg, t_data_philo *data_philo, pid_t *pid_pr);
+void			ft_free_exit(t_in_arg *in_arg, t_data_philo *data_philo,
+					pid_t *pid_pr);
 pthread_t		*ft_define_nh(t_in_arg *in_arg);
 
 #endif
