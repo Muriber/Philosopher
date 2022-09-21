@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 09:32:31 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/21 11:55:57 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/21 23:02:36 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ long int	ft_timenow(void)
 
 void	ft_free_exit(t_data_philo *data_philo, pthread_t *thread)
 {
+	//Hacer los destory de mutexs;
 	free(thread);
 	free(data_philo->in_arg->g_mutex_fork);
 	free(data_philo->in_arg->g_mutex_eat);
