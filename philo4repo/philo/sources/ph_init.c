@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 08:56:14 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/21 14:38:47 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:15:39 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_checkvalues(t_in_arg *in_arg)
 		printf("Wrong argument format.\n");
 		printf("Enter arguments in the following format:\n");
 		printf("./philo nbr_philos(>0) time_to_die(ms>0) ");
-		printf("time_to_eat(ms>0) time_to_sleep(ms>0) optional min_eats(>=0)\n");
+		printf("time_to_eat(ms>0) time_to_sleep(ms>0) optional min_eats(>0)\n");
 		exit (1);
 	}
 }
@@ -46,9 +46,9 @@ void	ft_init_arg(int argc, char **argv, t_in_arg *in_arg)
 	else
 		in_arg->nbr_eat = 0;
 	ft_checkvalues(in_arg);
+	in_arg->die = 0;
 	in_arg->g_mutex_fork = malloc(sizeof(pthread_mutex_t) * in_arg->nbr_philo);
 	in_arg->g_mutex_eat = malloc(sizeof(pthread_mutex_t) * in_arg->nbr_philo);
-	in_arg->state = 0;
 }
 
 t_data_philo	*ft_define_d_philo(t_in_arg *in_arg, pthread_t *thread)

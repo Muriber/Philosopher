@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:00:15 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/21 12:25:32 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:13:58 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	ft_init_prcs(pid_t *pid_pr,	t_data_philo *data_philo)
 	return (i);
 }
 
+void	ft_leaks(void)
+{
+	system("leaks -q philo_bonus");
+}
+
 int	main(int argc, char **argv)
 {
 	pid_t			*pid_pr;
@@ -40,19 +45,21 @@ int	main(int argc, char **argv)
 	int				i;
 
 	if (argc < 5 || argc > 6)
-		return (printf("wrong number of arguments\n"));
+		return (printf("Wrong number of arguments\n"));
 	ft_init_arg(argc, argv, &in_arg);
 	pid_pr = ft_define_pr(&in_arg);
 	data_philo = ft_define_d_philo(&in_arg, pid_pr);
 	ft_init_prcs(pid_pr, data_philo);
 	i = -1;
-	if (in_arg.nbr_eat > 0)
+/*	if (in_arg.nbr_eat > 0)
+	{	
 		while (++i < in_arg.nbr_philo)
 			waitpid(pid_pr[i], NULL, 0);
-	else
+	}
+	else*/
 		while (waitpid(-1, NULL, 0) == 0)
 			usleep(500);
-	printf("%d Salida main\n", in_arg.nbr_philo);
 	ft_free_exit(data_philo, pid_pr);
+	atexit(ft_leaks);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 16:10:59 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/21 22:59:59 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/22 11:14:18 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,11 @@ void	ft_eating(t_data_philo *g_dat, long int now, int prev_fork)
 		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_wr);
 		time = now + g_dat->in_arg->t_toeat;
 		g_dat->n_eat++;
-		g_dat->in_arg->state++;//
 		while (time >= ft_timenow())
 			usleep(500);
 		pthread_mutex_unlock(&g_dat->in_arg->g_mutex_eat[g_dat->n_philo]);
-		if (g_dat->in_arg->nbr_eat > 0 && g_dat->n_eat == g_dat->in_arg->nbr_eat)
+		if (g_dat->in_arg->nbr_eat > 0 && g_dat->n_eat
+			== g_dat->in_arg->nbr_eat)
 			g_dat->n_eat_ok = 1;
 	}
 	pthread_mutex_unlock(&g_dat->in_arg->g_mutex_fork[prev_fork]);

@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:33:26 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/20 12:07:10 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:56:23 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_thinking(t_data_philo *g_dat, long int now)
 {
 	(void) now;
-	if (g_dat->n_eat_ok == 0 && g_dat->in_arg->die == 0)
+	if (/*g_dat->n_eat_ok == 0 && */g_dat->in_arg->die == 0)
 	{
 		sem_wait(g_dat->sem_eat);
 		sem_wait(g_dat->in_arg->sem_wr);
@@ -30,15 +30,15 @@ void	ft_eating(t_data_philo *g_dat, long int now)
 {
 	long int		time;
 
-	if (g_dat->n_eat_ok == 0 && g_dat->in_arg->die == 0)
+	if (/*g_dat->n_eat_ok == 0 && */g_dat->in_arg->die == 0)
 	{
 		sem_wait(g_dat->sem_eat);
 		g_dat->start_eat = now;
 		sem_wait(g_dat->in_arg->sem_wr);
 		printf("%ld %d is eating\n", ft_timenow() - g_dat->start,
 			g_dat->n_philo + 1);
-		g_dat->n_eat++;
 		sem_post(g_dat->in_arg->sem_wr);
+		g_dat->n_eat++;
 		time = now + g_dat->in_arg->t_toeat;
 		while (time >= ft_timenow())
 			usleep(300);
@@ -52,7 +52,7 @@ void	ft_sleeping(t_data_philo *g_dat, long int now)
 {
 	long int		time;
 
-	if (g_dat->n_eat_ok == 0 && g_dat->in_arg->die == 0)
+	if (/*g_dat->n_eat_ok == 0 && */g_dat->in_arg->die == 0)
 	{
 		sem_wait(g_dat->sem_eat);
 		sem_wait(g_dat->in_arg->sem_wr);

@@ -6,7 +6,7 @@
 /*   By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 17:35:04 by bjimenez          #+#    #+#             */
-/*   Updated: 2022/09/20 14:35:45 by bjimenez         ###   ########.fr       */
+/*   Updated: 2022/09/22 11:50:57 by bjimenez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void	ft_free_exit(t_data_philo *data_philo, pid_t *pid_pr)
 		kill(pid_pr[i], SIGINT);
 	free(data_philo);
 	free(pid_pr);
-	printf("END\n");
 }
