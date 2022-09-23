@@ -6,7 +6,7 @@
 #    By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 09:10:14 by bjimenez          #+#    #+#              #
-#    Updated: 2022/09/22 13:44:40 by bjimenez         ###   ########.fr        #
+#    Updated: 2022/09/23 11:48:13 by bjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,8 @@ INCLUDE_A	= -L sources
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-#			@echo "\n -> Procesando Norminette <-"
-#			@norminette sources/*.c
+			@echo "\n -> Procesando Norminette <-"
+			@norminette sources/*.c
 			@echo "\n -> Compilando libphilo <-"
 			@ar rcs ${NAME} ${OBJS}
 			@echo "\n -> Compilando Philosophers Bonus <-"
