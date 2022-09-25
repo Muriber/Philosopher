@@ -6,12 +6,12 @@
 #    By: bjimenez <bjimenez@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/05 09:10:14 by bjimenez          #+#    #+#              #
-#    Updated: 2022/09/16 08:49:39 by bjimenez         ###   ########.fr        #
+#    Updated: 2022/09/23 11:51:44 by bjimenez         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		= sources/main.c sources/ph_utils.c sources/ph_init.c \
-				sources/ph_actions.c
+				sources/ph_actions.c sources/ph_philo.c
 
 OBJS		= ${SRCS:.c=.o}
 
@@ -20,7 +20,8 @@ CFLAGS		= -Wall -Wextra -Werror
 CC			= gcc
 
 NAME		= sources/libphilo.a
-M			= rm -f
+
+RM			= rm -f
 
 INCLUDE		= -I include
 
